@@ -12539,11 +12539,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Projects/HtH/HtHInAction/HtHInAction/HtHInAction.csproj",
+      "projectUniqueName": "/Projects/HtH/HtHInAction/HtHInAction.csproj",
       "projectName": "HtHInAction",
-      "projectPath": "/Projects/HtH/HtHInAction/HtHInAction/HtHInAction.csproj",
+      "projectPath": "/Projects/HtH/HtHInAction/HtHInAction.csproj",
       "packagesPath": "/Users/marcobonera/.nuget/packages/",
-      "outputPath": "/Projects/HtH/HtHInAction/HtHInAction/obj/",
+      "outputPath": "/Projects/HtH/HtHInAction/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

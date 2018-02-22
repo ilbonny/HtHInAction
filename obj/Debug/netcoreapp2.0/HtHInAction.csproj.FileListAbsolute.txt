@@ -9,3 +9,14 @@
 /Projects/HtH/HtHInAction/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.AssemblyInfo.cs
 /Projects/HtH/HtHInAction/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.dll
 /Projects/HtH/HtHInAction/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.pdb
+/Projects/HtH/HtHInAction/bin/Debug/netcoreapp2.0/HtHInAction.deps.json
+/Projects/HtH/HtHInAction/bin/Debug/netcoreapp2.0/HtHInAction.runtimeconfig.json
+/Projects/HtH/HtHInAction/bin/Debug/netcoreapp2.0/HtHInAction.runtimeconfig.dev.json
+/Projects/HtH/HtHInAction/bin/Debug/netcoreapp2.0/HtHInAction.dll
+/Projects/HtH/HtHInAction/bin/Debug/netcoreapp2.0/HtHInAction.pdb
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.csprojResolveAssemblyReference.cache
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.csproj.CoreCompileInputs.cache
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.AssemblyInfoInputs.cache
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.AssemblyInfo.cs
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.dll
+/Projects/HtH/HtHInAction/obj/Debug/netcoreapp2.0/HtHInAction.pdb
