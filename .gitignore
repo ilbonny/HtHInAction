@@ -3,6 +3,8 @@ node_modules/
 dist/
 npm-debug.log
 yarn-error.log
+bin/
+obj/
 
 # Editor directories and files
 .idea
@@ -10,5 +12,4 @@ yarn-error.log
 *.ntvs*
 *.njsproj
 *.sln
-bin
-obj
+
