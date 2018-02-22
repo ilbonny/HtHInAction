@@ -38,6 +38,12 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        include: [path.resolve('node_modules/vue-awesome')]
       }
     ]
   },

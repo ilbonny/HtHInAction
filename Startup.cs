@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.AspNetCore.Http;
 using HtHInAction.Models;
+using HtHInAction.Repositories;
 
 namespace HtHInAction
 {
@@ -32,6 +33,7 @@ namespace HtHInAction
                 o.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
+            services.AddTransient<IRepository<Customer>, Repository<Customer>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HtHInAction.Models;
+using HtHInAction.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -13,43 +14,41 @@ namespace HtHInAction.Controllers
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        private readonly IMongoCollection<Customer> _collection;
-        public CustomersController(IOptions<Settings> settings)
+        private readonly IRepository<Customer> _repository;
+        public CustomersController(IRepository<Customer> repository, IOptions<Settings> settings)
         {
-           var client =  new MongoClient(settings.Value.ConnectionString);
-           var database = client.GetDatabase(settings.Value.Database);
-           _collection = database.GetCollection<Customer>("Customers"); 
-        }
+           _repository = repository;
+        }        
 
         [HttpGet]
-        public IEnumerable<Customer> Get()
+        public async Task<IEnumerable<Customer>> Get()
         {
-            return _collection.Find(_=> true).ToList();
+            return await _repository.GetAll();
         }
 
         [HttpGet("{id}")]
-        public Customer Get(string id)
+        public async Task<Customer> Get(string id)
         {
-           return _collection.Find( x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
+           return await _repository.Get(id);
         }
 
         [HttpPost]
-        public void Post([FromBody]Customer customer)
+        public async Task Post([FromBody]Customer customer)
         {
-            if(customer!=null)
-                _collection.InsertOne(customer);
+            if(customer==null) return;
+            await _repository.Add(customer);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
+        public async Task<bool> Put(string id, [FromBody]Customer customer)
+        {            
+            return await _repository.Update(id, customer);
         }
 
-        // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<bool> Delete(string id)
         {
+            return await _repository.Remove(id);
         }
     }
 }

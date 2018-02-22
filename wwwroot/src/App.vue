@@ -1,92 +1,53 @@
 <template>
   <div id="app">
-    
-    
-    <b-container fluid>
-      <b-row>
-        <b-col>
-          <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group id="exampleInputGroup1"
-                    label="Email address:"
-                    label-for="exampleInput1"
-                    description="We'll never share your email with anyone else.">
-        <b-form-input id="exampleInput1"
-                      type="email"
-                      v-model="form.email"
-                      required
-                      placeholder="Enter email">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup2"
-                    label="Your Name:"
-                    label-for="exampleInput2">
-        <b-form-input id="exampleInput2"
-                      type="text"
-                      v-model="form.name"
-                      required
-                      placeholder="Enter name">
-        </b-form-input>
-      </b-form-group>
-      <b-form-group id="exampleInputGroup3"
-                    label="Food:"
-                    label-for="exampleInput3">
-        <b-form-select id="exampleInput3"
-                      :options="foods"
-                      required
-                      v-model="form.food">
-        </b-form-select>
-      </b-form-group>
-      <b-form-group id="exampleGroup4">
-        <b-form-checkbox-group v-model="form.checked" id="exampleChecks">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-navbar toggleable="md" type="dark" variant="dark">
 
-    
+  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+  <b-navbar-brand href="#"><img src="../src/assets/logo-housetohouse.png" width="226" height="55"/></b-navbar-brand>
+
+  <b-collapse is-nav id="nav_collapse">
+
+    <!-- Right aligned nav items -->
+    <b-navbar-nav class="ml-auto">
+    <b-nav pills>
+      <b-nav-item href="#" ><router-link :to="'/'"><icon name="home" scale="3"/></router-link></b-nav-item>
+       <b-nav-item href="#" ><router-link :to="'/customerDetails'"><icon name="user-secret" scale="3"/></router-link></b-nav-item>
+       <b-nav-item href="#"><icon name="envelope-square" scale="3"/></b-nav-item>
+    </b-nav>
+      <b-nav-form>
+        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+      </b-nav-form>
+
+      <b-nav-item-dropdown text="Lang" right>
+        <b-dropdown-item href="#">EN</b-dropdown-item>
+        <b-dropdown-item href="#">ES</b-dropdown-item>
+        <b-dropdown-item href="#">RU</b-dropdown-item>
+        <b-dropdown-item href="#">FA</b-dropdown-item>
+      </b-nav-item-dropdown>
+
+      <b-nav-item-dropdown right>
+        <!-- Using button-content slot -->
+        <template slot="button-content">
+          <em>User</em>
+        </template>
+        <b-dropdown-item href="#">Profile</b-dropdown-item>
+        <b-dropdown-item href="#">Signout</b-dropdown-item>
+      </b-nav-item-dropdown>
+    </b-navbar-nav>
+
+  </b-collapse>
+</b-navbar>
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-  data () {
-    return {
-      form: {
-        email: '',
-        name: '',
-        food: null,
-        checked: []
-      },
-      foods: [
-        { text: 'Select One', value: null },
-        'Carrots', 'Beans', 'Tomatoes', 'Corn'
-      ],
-      show: true
-    }
-  },
-  methods: {
-    onSubmit (evt) {
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset (evt) {
-      evt.preventDefault();
-      /* Reset our form values */
-      this.form.email = '';
-      this.form.name = '';
-      this.form.food = null;
-      this.form.checked = [];
-      /* Trick to reset/clear native browser form validation state */
-      this.show = false;
-      this.$nextTick(() => { this.show = true });
-    }
-  }
+  name: 'App'
 }
 </script>
+
+<style>
+</style>
