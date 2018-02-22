@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.AspNetCore.Http;
-
+using HtHInAction.Models;
 
 namespace HtHInAction
 {
@@ -27,6 +27,11 @@ namespace HtHInAction
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.Configure<Settings>(o=>{
+                o.ConnectionString = Configuration.GetSection("MongoConnection:ConnectionString").Value;
+                o.Database = Configuration.GetSection("MongoConnection:Database").Value;
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
