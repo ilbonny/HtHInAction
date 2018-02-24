@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Customers from '../components/Customers.vue'
+import MailToCustomers from '../components/MailToCustomers.vue'
 import Mails from '../components/Mails.vue'
 import EventBus from '../components/event-bus';
 
@@ -10,8 +11,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Customers',
-      component: Customers
+      name: 'MailToCustomers',
+      component: MailToCustomers
     },
     {
       path: '/customers',
