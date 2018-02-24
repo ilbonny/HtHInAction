@@ -38,7 +38,7 @@ namespace HtHInAction.Repositories
 
         public async Task<T> Get(string id)
         {
-            return await _collection.Find( x => x.Id == ObjectId.Parse(id)).FirstOrDefaultAsync();
+            return await _collection.Find( x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<IEnumerable<T>> GetAll()
@@ -48,13 +48,13 @@ namespace HtHInAction.Repositories
 
         public async Task<bool> Remove(string id)
         {
-            DeleteResult actionResult = await _collection.DeleteOneAsync(x=> x.Id == ObjectId.Parse(id));
+            DeleteResult actionResult = await _collection.DeleteOneAsync(x=> x.Id == id);
             return actionResult.IsAcknowledged && actionResult.DeletedCount > 0;
         }
 
         public async Task<bool> Update(string id, T item)
         {
-            ReplaceOneResult actionResult = await _collection.ReplaceOneAsync(x=>x.Id == ObjectId.Parse(id), item, new UpdateOptions { IsUpsert = true });
+            ReplaceOneResult actionResult = await _collection.ReplaceOneAsync(x=>x.Id == id, item, new UpdateOptions { IsUpsert = true });
             return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;
         }
     }

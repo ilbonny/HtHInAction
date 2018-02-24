@@ -11,8 +11,10 @@ import bModalDirective from 'bootstrap-vue/es/directives/modal/modal'
 
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
+import NavBar from './components/NavBar.vue'
 
 Vue.component('icon', Icon);
+Vue.component('navbar', NavBar);
 
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
@@ -25,6 +27,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components : { Icon },
+  components : { Icon, NavBar },
   render: h => h(App)
 })

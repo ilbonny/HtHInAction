@@ -15,7 +15,7 @@ namespace HtHInAction.Controllers
     public class CustomersController : Controller
     {
         private readonly IRepository<Customer> _repository;
-        public CustomersController(IRepository<Customer> repository, IOptions<Settings> settings)
+        public CustomersController(IRepository<Customer> repository)
         {
            _repository = repository;
         }        
