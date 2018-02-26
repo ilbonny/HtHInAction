@@ -12,12 +12,15 @@ import bModalDirective from 'bootstrap-vue/es/directives/modal/modal'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon.vue'
 import NavBar from './components/NavBar.vue'
+import lodash from 'lodash'
+import VueLodash from 'vue-lodash'
 
 Vue.component('icon', Icon);
 Vue.component('navbar', NavBar);
 
 Vue.use(BootstrapVue);
 Vue.use(VueResource);
+Vue.use(VueLodash, lodash)
 
 Vue.directive('b-modal', bModalDirective);
 Vue.component('b-modal', bModal);

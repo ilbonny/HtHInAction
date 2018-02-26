@@ -50,5 +50,12 @@ namespace HtHInAction.Controllers
         {
             return await _repository.Remove(id);
         }
+
+        [HttpPost]
+        [Route("sendmails/{type}")]
+        public void PostSendMails(string type, [FromBody]Mail mail)
+        {
+            
+        }
     }
 }

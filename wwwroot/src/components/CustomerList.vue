@@ -5,13 +5,13 @@
       </b-row>
       <b-row>       
   <b-table striped hover :items="items" :fields="fields" @row-clicked="rowclicked" >
-    
+     <template slot="actions" slot-scope="item">
+         <input type="checkbox" name="checked" :key="item.index" :value="item.item" @click.stop v-model="checkedItems">
+      </template>
   </b-table>
   </b-row>
   </b-container>
-
 </template>
-
 <script>
 
 import Vue from 'vue';
@@ -21,7 +21,10 @@ export default {
   name:'CustomerList',
   data () {
     return {
-      fields: {
+      fields: {        
+        actions: {
+          label: 'Seleziona','class': 'text-right'
+        },
         email: {
           label: 'Email',
           sortable: true
@@ -45,13 +48,10 @@ export default {
         phone: {
           label: 'Telefono',
           sortable: true
-        }        ,
-        type: {
-          label: 'Tipo',
-          sortable: true
         }
       },
-      items: []
+      items: [],
+      checkedItems: []
     }
   },
   created() {
@@ -69,7 +69,11 @@ export default {
     } ,
     rowclicked : function (item, index, event) {
       EventBus.$emit('selected-customer', item);
-    }  
+    },
+    sendMail : function(){
+      EventBus.$emit('send-mail-ids', checkedItems)
+    }
+
   }
 }
 </script>
