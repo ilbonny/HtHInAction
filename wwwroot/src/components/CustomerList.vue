@@ -58,8 +58,12 @@ export default {
   created() {
     this.loadCustomers();
     EventBus.$on('refresh-customer-list', this.loadCustomers)
+    EventBus.$on('find-customers', this.findCustomers)
   },  
-  beforeDestroy(){ EventBus.$off('refresh-customer-list'); },
+  beforeDestroy(){ 
+    EventBus.$off('refresh-customer-list'); 
+    EventBus.$off('find-customers'); 
+  },
   methods: {
     loadCustomers : function () {
       this.$http.get('/api/Customers').then(response => {
@@ -73,9 +77,14 @@ export default {
     },
     updateCheck: function () {
       EventBus.$emit('check-customer', this.checkedItems);
+    },
+    findCustomers : function (filter) {
+      this.$http.get('/api/Customers/find/' + filter).then(response => {
+      this.items = response.body;
+      }, response => {
+        // error callback
+      })
     }
-
-
   }
 }
 </script>

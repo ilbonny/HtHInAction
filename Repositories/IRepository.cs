@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using HtHInAction.Models;
 using Microsoft.Extensions.Options;
@@ -18,6 +20,8 @@ namespace HtHInAction.Repositories
         Task<bool> Update(string id, T item);
 
         Task<bool> Remove(string id);
+
+        Task<IEnumerable<T>> Find(Expression<Func<T,bool>> filter);
     }
 
     public class Repository<T> : IRepository<T> where T : BaseItem
@@ -56,6 +60,11 @@ namespace HtHInAction.Repositories
         {
             ReplaceOneResult actionResult = await _collection.ReplaceOneAsync(x=>x.Id == id, item, new UpdateOptions { IsUpsert = true });
             return actionResult.IsAcknowledged && actionResult.ModifiedCount > 0;
+        }
+
+        public async Task<IEnumerable<T>> Find(Expression<Func<T,bool>> filter)
+        {
+            return await _collection.Find(filter).ToListAsync();
         }
     }
 }

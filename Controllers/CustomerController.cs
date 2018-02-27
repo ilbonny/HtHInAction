@@ -50,5 +50,14 @@ namespace HtHInAction.Controllers
         {
             return await _repository.Remove(id);
         }
+
+        [HttpGet]
+        [Route("find/{filter}")]
+        public async Task<IEnumerable<Customer>> GetFindCustomers(string filter)
+        {
+            return string.IsNullOrEmpty(filter) 
+                ? await _repository.GetAll()
+                : await _repository.Find(x=> x.Name.Contains(filter) || x.Surname.Contains(filter) || x.Email.Contains(filter));
+        }
     }
 }
