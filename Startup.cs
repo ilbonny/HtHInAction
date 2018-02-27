@@ -33,8 +33,10 @@ namespace HtHInAction
                 o.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IRepository<Customer>, Repository<Customer>>();
             services.AddTransient<IRepository<Mail>, Repository<Mail>>();
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

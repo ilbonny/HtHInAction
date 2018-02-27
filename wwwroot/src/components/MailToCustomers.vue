@@ -4,17 +4,20 @@
         <b-col cols="12" class="text-center" > <h3>Invia Mail a Clienti</h3> </b-col>
     </b-row>
     <b-row style="margin:10px">
-        <b-col cols="6" class="text-center" > 
+        <b-col cols="5" class="text-center" > 
             <b-form-fieldset horizontal label-text-align="right" label="Seleziona la Mail:" :label-cols="6">
                 <b-form-select :disabled="isBusy" class="form-control" :options="mails" v-model="selectmail">
             </b-form-select>
             </b-form-fieldset>
         </b-col>
-        <b-col cols="6" class="text-center" > 
+        <b-col cols="5" class="text-center" > 
             <b-form-fieldset label-text-align="right" horizontal label="Filtro Clienti:" :label-cols="3">
                 <b-form-input :disabled="isBusy" v-model="filter" ></b-form-input>
             </b-form-fieldset>
-        </b-col>        
+        </b-col>      
+         <b-col cols="2" class="text-center" > 
+            <b-button type="submit" variant="primary" @click="sendMails" >Invia Mail</b-button> 
+        </b-col>                 
     </b-row>
     <b-row>       
         <b-col cols="12"><customerlist></customerlist></b-col>
@@ -34,12 +37,13 @@ export default {
         mails: [],
         selectmail : {},
         isBusy:false,
-        filter:''
+        filter:'',
+        checkedItems : []
     }
   },
   created() {
-    EventBus.$on('send-mail-ids', this.sendMails)
-    this.loadMails();
+     this.loadMails();
+     EventBus.$on('check-customer', this.checkCustomer)
   },
   methods: {
     loadMails : function () {
@@ -49,16 +53,21 @@ export default {
         // error callback
       })
     },
-    sendMails : function (checkedItems) {
-      this.$http.post('/api/Mails/sendmail/' + selectmail , checkedItems ).then(response => {
+    sendMails : function () {
+      this.$http.post('/api/Mails/sendmails/' + this.selectmail , this.checkedItems ).then(response => {
       
       }, response => {
         // error callback
       })
-    } 
+    },
+    checkCustomer : function(customers){
+      this.checkedItems = customers
+    }
+
   }
 }
 </script>
 
 <style>
+
 </style>

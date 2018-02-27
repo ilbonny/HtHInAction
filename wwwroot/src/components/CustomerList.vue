@@ -6,7 +6,7 @@
       <b-row>       
   <b-table striped hover :items="items" :fields="fields" @row-clicked="rowclicked" >
      <template slot="actions" slot-scope="item">
-         <input type="checkbox" name="checked" :key="item.index" :value="item.item" @click.stop v-model="checkedItems">
+         <input type="checkbox" name="checked" :key="item.index" :value="item.item" @click.stop v-model="checkedItems" @change="updateCheck" >
       </template>
   </b-table>
   </b-row>
@@ -23,7 +23,7 @@ export default {
     return {
       fields: {        
         actions: {
-          label: 'Seleziona','class': 'text-right'
+          label: 'Sel.','class': 'text-right'
         },
         email: {
           label: 'Email',
@@ -51,7 +51,8 @@ export default {
         }
       },
       items: [],
-      checkedItems: []
+      checkedItems : []
+     
     }
   },
   created() {
@@ -70,9 +71,10 @@ export default {
     rowclicked : function (item, index, event) {
       EventBus.$emit('selected-customer', item);
     },
-    sendMail : function(){
-      EventBus.$emit('send-mail-ids', checkedItems)
+    updateCheck: function () {
+      EventBus.$emit('check-customer', this.checkedItems);
     }
+
 
   }
 }
