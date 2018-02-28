@@ -45,8 +45,8 @@ export default {
           label: 'Indirizzo',
           sortable: true
         },
-        phone: {
-          label: 'Telefono',
+        delegate: {
+          label: 'Codice Incaricato',
           sortable: true
         }
       },

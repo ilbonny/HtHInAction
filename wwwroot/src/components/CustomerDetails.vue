@@ -5,7 +5,10 @@
       </b-row>
       <b-row>        
           <b-col cols="12" >
-          <b-form @submit="onSubmit" @reset="onReset">          
+          <b-form @submit="onSubmit" @reset="onReset">       
+           <b-form-group id="inputGroup6" label="Codice Incaricato:" label-for="inputDelegate">
+             <b-form-input id="inputDelegate" type="text" v-model="form.delegate" required > </b-form-input>
+           </b-form-group>
            <b-form-group id="inputGroup0" label="Email:" label-for="inputEmail">
              <b-form-input id="inputEmail" type="text" v-model="form.email" required > </b-form-input>
            </b-form-group>
@@ -60,7 +63,7 @@ export default {
         });  
       }
       else{
-        this.$http.put('/api/Cusstomers/' + this.form.id, JSON.stringify(this.form)).then(response => {
+        this.$http.put('/api/Customers/' + this.form.id, JSON.stringify(this.form)).then(response => {
            EventBus.$emit('refresh-customer-list');        
         }, response => {
          // error callback
