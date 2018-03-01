@@ -14,7 +14,8 @@
     "lodash": "^4.17.5",
     "popper.js": "^1.12.9",
     "vue": "^2.5.3",
-    "vue-lodash": "^1.0.4"
+    "vue-lodash": "^1.0.4",
+    "@aspnet/signalr-client": "^1.0.0-alpha1-final"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

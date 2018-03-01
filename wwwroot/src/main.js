@@ -27,6 +27,9 @@ Vue.component('b-modal', bModal);
 
 Vue.config.productionTip = false
 
+var signalR = require('@aspnet/signalr-client');
+Vue.prototype.$signalR = signalR;
+
 new Vue({
   el: '#app',
   router,
