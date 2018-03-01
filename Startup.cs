@@ -8,10 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.AspNetCore.Http;
 using HtHInAction.Models;
 using HtHInAction.Repositories;
+using HtHInAction.Services.Hubs;
 
 namespace HtHInAction
 {
@@ -37,6 +39,8 @@ namespace HtHInAction
             services.AddTransient<IRepository<Customer>, Repository<Customer>>();
             services.AddTransient<IRepository<Mail>, Repository<Mail>>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddSignalR();
+            services.AddSingleton<IHostedService, Weather>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,8 +50,17 @@ namespace HtHInAction
             {
                 app.UseDeveloperExceptionPage();                
             }            
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<WeatherHub>("weather");
+             
+            });
+
             app.UseStaticFiles();
             app.UseMvc();
+
+           
         }
     }
 }

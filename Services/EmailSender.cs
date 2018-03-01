@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HtHInAction.Models;
 using Microsoft.Extensions.Options;
 
+
 public interface IEmailSender
 {
     Task SendEmailAsync(Mail mailTemplate,  List<string> toEmail);
