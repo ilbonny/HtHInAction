@@ -22,6 +22,8 @@ namespace HtHInAction.Repositories
         Task<bool> Remove(string id);
 
         Task<IEnumerable<T>> Find(Expression<Func<T,bool>> filter);
+
+        Task<T> FindOne(Expression<Func<T,bool>> filter);
     }
 
     public class Repository<T> : IRepository<T> where T : BaseItem
@@ -65,6 +67,11 @@ namespace HtHInAction.Repositories
         public async Task<IEnumerable<T>> Find(Expression<Func<T,bool>> filter)
         {
             return await _collection.Find(filter).ToListAsync();
+        }
+
+        public async Task<T> FindOne(Expression<Func<T, bool>> filter)
+        {
+             return await _collection.Find(filter).FirstOrDefaultAsync();
         }
     }
 }

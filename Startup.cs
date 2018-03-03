@@ -35,10 +35,12 @@ namespace HtHInAction
                 o.Database = Configuration.GetSection("MongoConnection:Database").Value;
             });
 
-            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
             services.AddTransient<IRepository<Customer>, Repository<Customer>>();
+            services.AddTransient<IRepository<EmailSettings>, Repository<EmailSettings>>();
+            
             services.AddTransient<IRepository<Mail>, Repository<Mail>>();
             services.AddTransient<IEmailSender, EmailSender>();
+            
             services.AddSignalR();
             services.AddSingleton<IHostedService, Weather>();
         }

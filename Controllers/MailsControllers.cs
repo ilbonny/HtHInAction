@@ -60,6 +60,6 @@ namespace HtHInAction.Controllers
         {
             var mailTemplate = await _repository.Get(type);
             await _emailSender.SendEmailAsync(mailTemplate, customers.Select(x=>x.Email).ToList());
-        }
+        }        
     }
 }
