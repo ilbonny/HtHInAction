@@ -14,6 +14,7 @@
     <PackageReference Include="MongoDB.Driver.Core" Version="2.3.0" />
     <PackageReference Include="MongoDB.Bson" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.0-alpha1-final" />
+    <PackageReference Include="OpenPop.NET" Version="2.0.6.1120" />
   </ItemGroup>
 
   <ItemGroup>

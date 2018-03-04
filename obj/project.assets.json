@@ -2929,6 +2929,15 @@
           "lib/netstandard1.3/Newtonsoft.Json.Bson.dll": {}
         }
       },
+      "OpenPop.NET/2.0.6.1120": {
+        "type": "package",
+        "compile": {
+          "lib/net40/OpenPop.dll": {}
+        },
+        "runtime": {
+          "lib/net40/OpenPop.dll": {}
+        }
+      },
       "Remotion.Linq/2.1.1": {
         "type": "package",
         "dependencies": {
@@ -8078,6 +8087,17 @@
         "lib/netstandard1.3/Newtonsoft.Json.Bson.xml",
         "newtonsoft.json.bson.1.0.1.nupkg.sha512",
         "newtonsoft.json.bson.nuspec"
+      ]
+    },
+    "OpenPop.NET/2.0.6.1120": {
+      "sha512": "NKgNRQAMJOTSnefCt3yfoQ8fPYml46Mwzq6m9OPwzmtKbXLXptUKaMnUjOoISpSowv8EclRVuv6DJXtZPJfcKQ==",
+      "type": "package",
+      "path": "openpop.net/2.0.6.1120",
+      "files": [
+        "lib/net20/OpenPop.dll",
+        "lib/net40/OpenPop.dll",
+        "openpop.net.2.0.6.1120.nupkg.sha512",
+        "openpop.net.nuspec"
       ]
     },
     "Remotion.Linq/2.1.1": {
@@ -13291,7 +13311,8 @@
       "Microsoft.NETCore.App >= 2.0.0",
       "MongoDB.Bson >= 2.3.0",
       "MongoDB.Driver >= 2.3.0",
-      "MongoDB.Driver.Core >= 2.3.0"
+      "MongoDB.Driver.Core >= 2.3.0",
+      "OpenPop.NET >= 2.0.6.1120"
     ]
   },
   "packageFolders": {
@@ -13357,6 +13378,10 @@
           "MongoDB.Driver.Core": {
             "target": "Package",
             "version": "[2.3.0, )"
+          },
+          "OpenPop.NET": {
+            "target": "Package",
+            "version": "[2.0.6.1120, )"
           }
         },
         "imports": [
@@ -13366,5 +13391,17 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'OpenPop.NET 2.0.6.1120' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "OpenPop.NET",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

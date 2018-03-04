@@ -15,12 +15,12 @@ namespace HtHInAction.Controllers
     public class MailsController : Controller
     {
         private readonly IRepository<Mail> _repository;
-        private readonly IEmailSender _emailSender;
+        private readonly IEmailService _emailService;
 
-        public MailsController(IRepository<Mail> repository, IEmailSender emailSender)
+        public MailsController(IRepository<Mail> repository, IEmailService emailService )
         {
            _repository = repository;
-           _emailSender = emailSender;
+           _emailService = emailService;
         }        
 
         [HttpGet]
@@ -59,7 +59,13 @@ namespace HtHInAction.Controllers
         public async Task PostSendMails(string type, [FromBody]IList<Customer> customers)
         {
             var mailTemplate = await _repository.Get(type);
-            await _emailSender.SendEmailAsync(mailTemplate, customers.Select(x=>x.Email).ToList());
-        }        
+            await _emailService.SendEmailAsync(mailTemplate, customers.Select(x=>x.Email).ToList());
+        }   
+
+        [HttpGet("received")]
+        public void GetEmail(string id)
+        {
+            _emailService.ReceivedEmailAsync();
+        }     
     }
 }

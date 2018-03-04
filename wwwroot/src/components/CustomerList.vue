@@ -2,8 +2,8 @@
  <b-container fluid>
       <b-row style="margin:10px">
         <b-col cols="12" class="text-center" > <h3>Lista Clienti</h3></b-col>
-        <b-table class="table" v-if="forecasts" :items="forecasts">            
-        </b-table>
+        <!--<b-table class="table" v-if="forecasts" :items="forecasts">            
+        </b-table>-->
       </b-row>
       <b-row>       
   <b-table striped hover :items="items" :fields="fields" @row-clicked="rowclicked" >
@@ -62,17 +62,17 @@ export default {
     this.loadCustomers();
     EventBus.$on('refresh-customer-list', this.loadCustomers)
     EventBus.$on('find-customers', this.findCustomers)
-    this.connection = new this.$signalR.HubConnection('/weather');
+    //this.connection = new this.$signalR.HubConnection('/weather');
   },  
   beforeDestroy(){ 
     EventBus.$off('refresh-customer-list'); 
     EventBus.$off('find-customers'); 
   },
   mounted: function () {
-    this.connection.start();
-    this.connection.on('weather', data => {
-         this.forecasts = data;
-    });
+    //this.connection.start();
+    //this.connection.on('weather', data => {
+    //     this.forecasts = data;
+    //});
   },
   methods: {
     loadCustomers : function () {

@@ -6,10 +6,36 @@
 
     <!-- Right aligned nav items -->
     <b-navbar-nav class="ml-auto">
-    <b-nav pills>
-        <b-nav-item href="#"><router-link :to="'/'"><icon name="home" scale="3"/></router-link></b-nav-item>
-        <b-nav-item href="#"><router-link :to="'/customers'"><icon name="user-secret" scale="3"/></router-link></b-nav-item>
-        <b-nav-item href="#"><router-link :to="'/mails'"><icon name="envelope-square" scale="3"/></router-link></b-nav-item>
+    <b-nav pills>      
+        <b-nav-item href="#">
+          <router-link :to="'/'">
+            <b-button variant="primary">
+              <icon name="home" scale="2"/>
+            </b-button>
+          </router-link>
+        </b-nav-item>
+        <b-nav-item href="#">
+          <router-link :to="'/customers'">
+            <b-button variant="primary">
+              <icon name="user-secret" scale="2"/>
+            </b-button>
+          </router-link>
+        </b-nav-item>
+         <b-nav-item href="#">
+          <router-link :to="'/mails'">
+            <b-button variant="primary">
+              <icon name="envelope-square" scale="2"/>
+            </b-button>
+          </router-link>
+        </b-nav-item>
+         <b-nav-item href="#">
+          <router-link :to="'/mails'">
+            <b-button variant="primary">
+              <icon name="envelope-open" scale="2"/>
+              <b-badge variant="light">{{notificationsEmail}}</b-badge>
+            </b-button>
+          </router-link>
+        </b-nav-item>
     </b-nav>
       <b-nav-form>
         <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
@@ -21,10 +47,23 @@
 </b-navbar>
 </template>
 <script>
+import Vue from "vue";
 
-import Vue from 'vue'
-
-export default{
-  name: 'NavBar',  
-}
+export default {
+  name: "NavBar",
+  data () {
+    return {
+      notificationsEmail: 0
+    }
+  },
+  created() {
+    this.connection = new this.$signalR.HubConnection('/emailNotifications');
+  },
+  mounted: function () {
+    this.connection.start();
+    this.connection.on('emailNotifications', data => {
+         this.notificationsEmail = data;
+    });
+  },
+};
 </script>

@@ -37,12 +37,14 @@ namespace HtHInAction
 
             services.AddTransient<IRepository<Customer>, Repository<Customer>>();
             services.AddTransient<IRepository<EmailSettings>, Repository<EmailSettings>>();
+            services.AddTransient<IRepository<MailSentAndReceived>, Repository<MailSentAndReceived>>();
             
             services.AddTransient<IRepository<Mail>, Repository<Mail>>();
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IEmailService, EmailService>();
             
             services.AddSignalR();
             services.AddSingleton<IHostedService, Weather>();
+            services.AddSingleton<IHostedService, EmailNotifications>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +58,7 @@ namespace HtHInAction
             app.UseSignalR(routes =>
             {
                 routes.MapHub<WeatherHub>("weather");
+                routes.MapHub<EmailNotificationsHub>("emailNotifications");
              
             });
 
