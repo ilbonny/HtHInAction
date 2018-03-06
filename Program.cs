@@ -22,6 +22,7 @@ namespace HtHInAction
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .UseIISIntegration()
+                .UseUrls("http://localhost:8080")
                 .UseStartup<Startup>()
                 .Build();
     }

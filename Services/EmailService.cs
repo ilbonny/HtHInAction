@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HtHInAction.Models;
 using HtHInAction.Repositories;
 using Microsoft.Extensions.Options;
+using OpenPop.Mime;
 using OpenPop.Pop3;
 
 public interface IEmailService
@@ -28,7 +29,7 @@ public class EmailService : IEmailService
 
     public async Task SendEmailAsync(Mail mailTemplate, List<string> toEmail)
     {
-        var emails = await _emailSettingsRepository.Find(x => x.Default);
+        var emails = await _emailSettingsRepository.Find(x=>true);
         var defaultEmail = emails.FirstOrDefault();
 
         await Execute(mailTemplate, toEmail, defaultEmail);
@@ -49,12 +50,42 @@ public class EmailService : IEmailService
             pop3Client.Connect(defaultEmail.DomainPop, defaultEmail.PortPop, true);
             pop3Client.Authenticate(defaultEmail.Email, defaultEmail.Password);
             int count = pop3Client.GetMessageCount();
+
+            for (int i = 1; i < count+1; i++)
+            {
+                try
+                {
+                    var message = pop3Client.GetMessage(i);
+                    var messageId = message.Headers.MessageId.ToString();
+                    
+                    var mailFind = await _mailSentAndReceivedRepository.FindOne(x=> x.MessageId == messageId);
+                    if(mailFind!=null) continue;
+
+                    var mail = new MailSentAndReceived();
+                    mail.To = message.Headers.To.FirstOrDefault().Address;
+                    mail.From = message.Headers.From.MailAddress.Address;                    
+                    mail.Subject = message.Headers.Subject;
+                    mail.MessageId = message.Headers.MessageId.ToString();
+                    mail.Date = DateTime.Now;
+                    mail.Type = "Received";
+
+                    var messagePart = message.MessagePart.MessageParts[1];
+                    mail.Body = messagePart.BodyEncoding.GetString(messagePart.Body);
+
+                    await _mailSentAndReceivedRepository.Add(mail);                    
+                }
+                catch (Exception exc)
+                {
+                    var message = exc.ToString();
+                }
+            }
+
             return count;
         }
         catch (Exception exc)
         {
-            var message = exc.ToString();   
-            return 0;         
+            var message = exc.ToString();
+            return 0;
         }
         finally
         {
@@ -94,9 +125,12 @@ public class EmailService : IEmailService
             await _mailSentAndReceivedRepository.Add(
                 new MailSentAndReceived
                 {
-                    Mail = mailTemplate,
-                    Email = toEmail,
-                    Date = DateTime.Now
+                    From = mailTemplate.From,
+                    To = toEmail,
+                    Subject = mailTemplate.Subject,
+                    Body = mailTemplate.Body,
+                    Date = DateTime.Now,
+                    Type = "Sent"
                 });
         }
         catch (Exception exc)

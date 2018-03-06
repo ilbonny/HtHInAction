@@ -29,7 +29,7 @@
           </router-link>
         </b-nav-item>
          <b-nav-item href="#">
-          <router-link :to="'/mails'">
+          <router-link :to="'/mailsmanage'">
             <b-button variant="primary">
               <icon name="envelope-open" scale="2"/>
               <b-badge variant="light">{{notificationsEmail}}</b-badge>
